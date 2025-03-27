@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutor Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ tuition_id }} - {{ tuition_name }} Tutor Dashboard</h1>
+        <p>Welcome, {{ username }}!</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <h3>Mark Attendance</h3>
+        {% for student_name, status in attendance.items() %}
+            <form action="/tutor_dashboard/{{ username }}" method="post">
+                <input type="hidden" name="student_name" value="{{ student_name }}">
+                <label>{{ student_name }}:</label>
+                <input type="checkbox" name="arrived" {% if status['arrived'] %}checked{% endif %}> Arrived<br>
+                <button type="submit">Update</button>
+            </form>
+            <p>Started from Home: {{ status['started'] }}</p>
+            {% if status['started'] and not status['arrived'] %}
+                <p style="color: red;">{{ student_name }} didn’t arrive! Contact parent.</p>
+            {% endif %}
+        {% endfor %}
+        <a href="/">Logout</a>
+    </div>
+</body>
+</html>

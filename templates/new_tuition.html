@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create New Tuition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>Create a New Tuition (Tutors Only)</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <form action="/new_tuition" method="post">
+            <input type="text" name="username" placeholder="Your Username" required>
+            <input type="password" name="password" placeholder="Password (for tuition and account)" required>
+            <input type="text" name="tuition_id" placeholder="Tuition ID (e.g., T001)" required>
+            <input type="text" name="tuition_name" placeholder="Tuition Name" required>
+            <button type="submit">Create Tuition</button>
+        </form>
+    </div>
+</body>
+</html>

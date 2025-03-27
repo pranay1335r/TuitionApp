@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tuition Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Tuition Dashboard</h1>
+        <p>Search for your tuition:</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <form action="/" method="post">
+            <input type="text" name="tuition_id" placeholder="Enter Tuition ID" required>
+            <button type="submit">Search</button>
+        </form>
+        <p>Not registered? <a href="/new_tuition">Register a new tuition (Tutors only)</a></p>
+    </div>
+</body>
+</html>

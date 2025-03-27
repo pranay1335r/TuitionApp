@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Role</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ tuition_id }} - Select Role</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <form action="/role_select/{{ tuition_id }}" method="post">
+            <input type="password" name="password" placeholder="Tuition Password" required>
+            <select name="role" required>
+                <option value="" disabled selected>Are you a...</option>
+                <option value="tutor">Tutor</option>
+                <option value="parent">Parent</option>
+                <option value="register">Register (Parent only)</option>
+            </select>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parent Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ tuition_id }} - {{ tuition_name }} Parent Dashboard</h1>
+        <p>Welcome, {{ username }}!</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <h3>Update Status for {{ student_name }}</h3>
+        <form action="/parent_dashboard/{{ username }}" method="post">
+            <input type="checkbox" name="started" {% if attendance[student_name]['started'] %}checked{% endif %}> Started from Home<br>
+            <button type="submit">Submit</button>
+        </form>
+        <h3>Tutor Attendance</h3>
+        <p>Arrived: {{ attendance[student_name]['arrived'] if attendance[student_name]['arrived'] is not none else 'Not marked' }}</p>
+        <a href="/">Logout</a>
+    </div>
+</body>
+</html>
